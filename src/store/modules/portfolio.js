@@ -18,12 +18,18 @@ export default{
         },
         sellStock(state, {stockId, quantity, stockPrice}){
             const record = state.stocks.find(element => element.id == stockId)
+
             if (record.quantity > quantity) {
                 record.quantity -= quantity
             }else{
-                state.stock.splice(state.stocks.indexOf(record), 1)
+                state.stocks.splice(state.stocks.indexOf(record), 1)
             }
+
             state.funds += stockPrice * quantity
+        },
+        setPortfolio(state, portfolio){
+            state.funds = portfolio.funds
+            state.stocks = portfolio.stockPortfolio ? portfolio.stockPortfolio : []
         }
     },
     actions:{
